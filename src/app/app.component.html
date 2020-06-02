@@ -1,10 +1,10 @@
 <div class="main">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="form-field" [ngClass]="{ 'error': isSubmitted && f.mettingId.errors }">
-      <input type="text" name="mettingId" id="mettingId" class="form-input" placeholder="e.g 95287732142" formControlName="mettingId">
+    <div class="form-field" [ngClass]="{ 'error': isSubmitted && f.meetingId.errors }">
+      <input type="text" name="meetingId" id="meetingId" class="form-input" placeholder="e.g 95287732142" formControlName="meetingId">
     </div>
-    <div class="form-field" [ngClass]="{ 'error': isSubmitted && f.mettingPass.errors }">
-      <input type="text" name="mettingPass" id="mettingPass" class="form-input" placeholder="e.g 8QwQ31" formControlName="mettingPass">
+    <div class="form-field" [ngClass]="{ 'error': isSubmitted && f.meetingPass.errors }">
+      <input type="text" name="meetingPass" id="meetingPass" class="form-input" placeholder="e.g 8QwQ31" formControlName="meetingPass">
     </div>
     <div class="form-field">
       <button class="button button-primary button-large full-width" id="cta">Join meeting</button>

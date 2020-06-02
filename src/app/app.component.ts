@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DOCUMENT } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ ZoomMtg.prepareJssdk();
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
   public signatureEndpoint = 'https://augmedix-zoom-sdk-signature.herokuapp.com/';
   public apiKey = 'Oh8hAtPlQZO80fUljW6U_g';
@@ -36,10 +36,21 @@ export class AppComponent implements OnInit {
     this.initForm();
   }
 
+  ngAfterViewInit() {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const meetingId = urlParams.get('meetingId');
+    const meetingPass = urlParams.get('meetingPass');
+
+    if (meetingId && meetingPass) {
+      this.joinMeeting(meetingId, meetingPass);
+    }
+  }
+
   initForm() {
     this.form = this.formBuilder.group({
-      mettingId: ['', Validators.required],
-      mettingPass: ['', Validators.required],
+      meetingId: ['', Validators.required],
+      meetingPass: ['', Validators.required],
     });
   }
 
@@ -53,16 +64,16 @@ export class AppComponent implements OnInit {
         return;
     }
 
-    const { mettingId, mettingPass } = this.form.value;
+    const { meetingId, meetingPass } = this.form.value;
 
-    this.joinMeeting(mettingId, mettingPass);
-
-    document.getElementById('cta').innerHTML = 'Joining... (Please wait)';
+    this.joinMeeting(meetingId, meetingPass);
   }
 
-  async joinMeeting(mettingId: any, mettingPass: any) {
-    this.meetingNumber = mettingId;
-    this.passWord = mettingPass;
+  async joinMeeting(meetingId: any, meetingPass: any) {
+    document.getElementById('cta').innerHTML = 'Joining... (Please wait)';
+
+    this.meetingNumber = meetingId;
+    this.passWord = meetingPass;
 
     const signature = await this.getSignature();
 
