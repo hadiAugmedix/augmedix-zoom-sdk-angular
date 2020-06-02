@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   public apiKey = 'Oh8hAtPlQZO80fUljW6U_g';
   public meetingNumber: number;
   public role = 0;
-  public leaveUrl = 'http://zoomapp.habibhadi.com/';
+  public leaveUrl = 'https://augmedix-zoom-angular.herokuapp.com/';
   public userName = 'AugmedixDemoUser';
   public userEmail = '';
   public passWord: any = '';
