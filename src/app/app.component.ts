@@ -131,6 +131,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     ZoomMtg.init({
       leaveUrl: this.leaveUrl,
       isSupportAV: true,
+      showMeetingHeader: false,
+      audioPanelAlwaysOpen: false,
+      videoDrag: false,
       success: (success: any) => {
         ZoomMtg.join({
           signature,
