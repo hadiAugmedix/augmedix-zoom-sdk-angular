@@ -20,8 +20,10 @@
     "@angular/platform-browser": "~8.2.11",
     "@angular/platform-browser-dynamic": "~8.2.11",
     "@angular/router": "~8.2.11",
+    "@types/socket.io-client": "^1.4.33",
     "@zoomus/websdk": "^1.7.7",
     "rxjs": "~6.4.0",
+    "socket.io-client": "~2.3.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

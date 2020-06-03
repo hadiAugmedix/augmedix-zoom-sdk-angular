@@ -4,6 +4,8 @@ import { DOCUMENT } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ZoomMtg } from '@zoomus/websdk';
+import { ZoomInterface } from './interfaces/zoom-interface';
+import * as io from 'socket.io-client';
 
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareJssdk();
@@ -34,6 +36,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.initForm();
+    this.connectToSocket();
   }
 
   ngAfterViewInit() {
@@ -45,6 +48,31 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (meetingId && meetingPass) {
       this.joinMeeting(meetingId, meetingPass);
     }
+  }
+
+  connectToSocket() {
+    const server = 'wss://streaming-poc.augmedix.com';
+    const socket = io(server);
+
+    socket.on('connect', () => {
+      console.log('socket connected');
+    });
+
+    socket.on('welcome', (data: any) => {
+      console.log(`${data}`);
+    });
+
+    socket.on('meeting.started', (data: ZoomInterface) => {
+      console.log('Meeting started');
+      console.log(data);
+
+      this.joinMeeting(data.meetingID, data.pw);
+    });
+
+    socket.on('meeting.ended', (data: ZoomInterface) => {
+      console.log('Meeting ended');
+      console.log(data);
+    });
   }
 
   initForm() {
